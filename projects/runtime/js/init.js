@@ -30,7 +30,7 @@ var init = function (window) {
     rules = app.rules,
     particleManager = opspark.makeParticleManager(app.stage);
     ground = opspark.makeGround(app);
-
+   
     // TODO 2 : add background
 
     
@@ -58,7 +58,9 @@ var init = function (window) {
             app.addUpdateable(playerManager);
             app.addUpdateable({update: update});
         });
-    
+    var background = opspark.makeBackground(app,ground);
+    view.addChild(background);
+
     view.addChild(fps);
     app.addUpdateable(fps);
     
@@ -69,9 +71,25 @@ var init = function (window) {
             playerManager.hitTest(body);
         });
     }
-    
-    // TODO 1 : add a heads-up display to game
+    var moon = draw.bitmap('img/moon.png');
+    moon.x = 900;
+    moon.y = 5;
+    moon.scaleX = 0.5;
+    moon.scaleY = 0.5;
+    background.addChild(moon);
 
+    var circle;
+    for(var i=0;i<100;i++) {
+    circle = draw.circle(10,'white','LightGray',2);
+    circle.x = canvasWidth*Math.random();
+    circle.y = groundY*Math.random();
+    background.addChild(circle);
+}
+
+    // TODO 1 : add a heads-up display to game
+    var hud = opspark.makeHud();
+    view.addChild(hud);
+    window.hud = hud;
 
     // TODO 6 : create game manager
 

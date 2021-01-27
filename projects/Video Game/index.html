@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #canvas {
+            border: solid;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+
+<body>
+    <canvas id="canvas" height="500" width="500"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas")
+        document.addEventListener("keydown", keydownHandler, false)
+        document.addEventListener("keyup", keyupHandler, false)
+        
+        function keydownHandler(e) {
+            if (e.key === "ArrowUp") {
+                upPressed = true
+            }
+            if (e.key === "ArrowDown") {
+                downPressed = true
+            }
+            if (e.key === "ArrowRight") {
+                rightPressed = true
+            }
+            if (e.key === "ArrowLeft") {
+                leftPressed = true
+            }
+        }
+        
+        function keyupHandler(e) {
+            if (e.key === "ArrowUp") {
+                upPressed = false
+            }
+            if (e.key === "ArrowDown") {
+                downPressed = false
+            }
+            if (e.key === "ArrowRight") {
+                rightPressed = false
+            }
+            if (e.key === "ArrowLeft") {
+                leftPressed = false
+            }
+        }
+        var ctx = canvas.getContext("2d")
+        var posX = 0
+        var posY = 0
+        var speedX = 0
+        var speedY = 0
+        var upPressed = false
+        var downPressed = false
+        var leftPressed = false
+        var rightPressed = false
+        setInterval(update, 50)
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.fillRect(posX, posY, 50, 50)
+            //ctx.rotate(1 * Math.PI / 180)//
+            if(downPressed){
+                speedY = speedY + 2
+            }
+            if(upPressed){
+                speedY = speedY - 2
+            }
+            if(rightPressed){
+                speedX = speedX + 2
+            }
+            if(leftPressed){
+                speedX = speedX - 2
+            }
+          if(posX > canvas.width - 50){
+            posX = 0
+          }
+          if(posX < 0){
+            posX = canvas.width - 50
+          }
+          if(posY > canvas.height - 50){
+            posY = 0
+          }
+          if(posY < 0){
+            posY = canvas.height - 50
+          }
+          if(speedX > 0){
+            speedX = speedX - 1
+          }
+          if(speedX < 0){
+            speedX = speedX + 1
+          }
+          if(speedY > 0){
+            speedY = speedY - 1
+          }
+          if(speedY < 0){
+            speedY = speedY + 1  
+          }
+          if(speedX > 20){
+            speedX = 20
+          }
+          if(speedY > 20){
+            speedY = 20
+          }
+          if(speedX < -20){
+            speedX = -20
+          }
+          if(speedY < -20){
+            speedY = -20
+          }
+        posX = posX + speedX
+        posY = posY + speedY
+        }
+
+    </script>
+</body>
+
+</html>
